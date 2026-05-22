@@ -6,6 +6,7 @@ import { z } from "zod";
 import Button from "../components/ui/Button";
 import { Select } from "../components/ui/Select"
 import { Textarea } from "../components/ui/Textarea"
+import { Link } from "react-router-dom"
 
 type FormData = {
   nama: string;
@@ -36,6 +37,7 @@ export default function RegisterForm() {
 
   return (
     <div>
+      <h2 className="text-5xl font-bold text-center mb-4">Register</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/** Nama **/}
         <InputText
@@ -90,6 +92,11 @@ export default function RegisterForm() {
           <Button type="submit" label="Register" variant="primary" />
         </div>
       </form>
+
+      <p className="mt-4 text-sm">
+        Sudah Punya Akun?
+        <Link to="/Login">Login disini</Link>
+      </p>
     </div>
   );
 }
