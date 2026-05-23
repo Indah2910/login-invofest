@@ -4,14 +4,15 @@ interface NavLinkProps {
   icon?: React.ReactNode;
   isActive?: boolean;
 }
+
 export const NavLink: React.FC<NavLinkProps> = ({
   label,
   href,
   icon,
-  isActive = false,
+  isActive,
 }) => {
   const activeStyle = "text-red-900";
-  const defaultStyle = "text-slate-600 hover:text-red-900";
+  const defaultStyle = "text-slate-600 hover: text-red-900";
   return (
     <a
       href={href}
