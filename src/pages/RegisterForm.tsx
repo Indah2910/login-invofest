@@ -39,7 +39,7 @@ const kategoriOptions = [
 
 export default function RegisterForm() {
   const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [_loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const {
