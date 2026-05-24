@@ -19,7 +19,6 @@ import CategoryIndex from "./pages/Dashboard/category/CategoryIndex";
 import CategoryCreate from "./pages/Dashboard/category/CategoryCreate";
 import EventIndex from "./pages/Dashboard/event/EventIndex";
 import BiodataIndex from "./pages/Dashboard/biodata/BiodataIndex";
-import BiodataCreate from "./pages/Dashboard/biodata/BiodataCreate";
 import BiodataEdit from "./pages/Dashboard/biodata/BiodataEdit";
 import SpeakerIndex from "./pages/Dashboard/speaker/SpeakerIndex";
 import SpeakerCreate from "./pages/Dashboard/speaker/SpeakerCreate";
@@ -102,10 +101,6 @@ function App() {
                         <Route
                             path="/dashboard/speaker/edit/:id"
                             element={<SpeakerEdit />}
-                        />
-                        <Route
-                            path="/dashboard/biodata/create"
-                            element={<BiodataCreate />}
                         />
 
                         <Route
