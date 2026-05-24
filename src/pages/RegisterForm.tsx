@@ -52,17 +52,14 @@ export default function RegisterForm() {
     mode: "onSubmit",
   });
 
-  const onSubmit = async (data: FormData) => {
+   const onSubmit = async (data: FormData) => {
     setLoading(true);
     setSuccess(false);
-
     try {
       await new Promise((res) => setTimeout(res, 1500));
       console.log("DATA:", data);
-
       setSuccess(true);
       reset();
-
       setTimeout(() => setSuccess(false), 3000);
     } catch (error) {
       console.error(error);
@@ -72,108 +69,126 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="w-full max-w-md bg-white shadow-xl rounded-3xl p-8 border border-gray-100">
-      <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
-        Create Account
-      </h2>
+    <div className="min-h-screen flex">
 
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <InputText
-          label="Nama Lengkap"
-          nama="nama"
-          register={register}
-          error={errors.nama?.message}
-        />
-        <InputText
-          label="Email"
-          nama="email"
-          type="email"
-          register={register}
-          error={errors.email?.message}
-        />
-        <InputPassword
-          label="Password"
-          nama="password"
-          register={register}
-          error={errors.password?.message}
-        />
-        <InputPassword
-          label="Confirm Password"
-          nama="password_confirm"
-          register={register}
-          error={errors.password_confirm?.message}
-        />
+      {/* ── KIRI: Logo (tidak diubah) ── */}
+      <div className="hidden md:flex flex-col items-center justify-center w-1/2 bg-gray-100">
+        {/* logo kamu tetap di sini, tidak disentuh */}
+      </div>
 
-        {/* Dropdown Kategori dengan Animasi Ikon */}
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-semibold text-gray-700">
-            Event Category
-          </label>
-          <div className="relative w-full">
-            <select
-              {...register("kategori")}
-              onClick={() => setIsOpen(!isOpen)}
-              onBlur={() => setIsOpen(false)}
-              className={`w-full p-3 bg-white rounded-xl border outline-none appearance-none transition-all focus:ring-2 focus:ring-red-200 relative z-10 cursor-pointer ${
-                errors.kategori ? "border-red-500 bg-red-50" : "border-gray-300"
-              }`}
-            >
-              <option value="">Select event category..</option>
-              {kategoriOptions.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
+      {/* ── KANAN: Form Register ── */}
+      <div className="flex w-full md:w-1/2 min-h-screen items-center justify-center bg-white px-8 lg:px-16 py-10">
+        <div className="w-full max-w-sm">
 
-            <div
-              className={`pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 z-20 transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`}
-            >
-              <svg
-                className="fill-current h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-              </svg>
+          {/* Heading */}
+          <div className="mb-6">
+            <h2 className="text-3xl font-bold text-gray-900 mb-1">Buat Akun</h2>
+            <p className="text-sm text-gray-400">Isi data di bawah untuk mendaftar</p>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+
+            <InputText
+              label="Nama Lengkap"
+              nama="nama"
+              register={register}
+              error={errors.nama?.message}
+            />
+
+            <InputText
+              label="Email"
+              nama="email"
+              type="email"
+              register={register}
+              error={errors.email?.message}
+            />
+
+            <InputPassword
+              label="Password"
+              nama="password"
+              register={register}
+              error={errors.password?.message}
+            />
+
+            <InputPassword
+              label="Confirm Password"
+              nama="password_confirm"
+              register={register}
+              error={errors.password_confirm?.message}
+            />
+
+            {/* Dropdown Kategori */}
+            <div className="flex flex-col gap-1">
+              <label className="text-xs font-semibold tracking-widest text-gray-500 uppercase">
+                Event Category
+              </label>
+              <div className="relative">
+                <select
+                  {...register("kategori")}
+                  onClick={() => setIsOpen(!isOpen)}
+                  onBlur={() => setIsOpen(false)}
+                  className={`w-full px-4 py-3 bg-white rounded-xl border outline-none appearance-none transition-all focus:ring-2 focus:ring-[#7a1a1a]/20 focus:border-[#7a1a1a] cursor-pointer text-sm ${
+                    errors.kategori ? "border-red-400 bg-red-50" : "border-gray-300 text-gray-700"
+                  }`}
+                >
+                  <option value="">Pilih kategori event...</option>
+                  {kategoriOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+                <div className={`pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`}>
+                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                  </svg>
+                </div>
+              </div>
+              {errors.kategori && <p className="text-red-500 text-xs">{errors.kategori.message}</p>}
             </div>
-          </div>
-          {errors.kategori && (
-            <p className="text-red-500 text-xs">{errors.kategori.message}</p>
-          )}
+
+            {/* Bio */}
+            <div className="flex flex-col gap-1">
+              <label className="text-xs font-semibold tracking-widest text-gray-500 uppercase">Bio</label>
+              <textarea
+                {...register("bio")}
+                rows={3}
+                className={`px-4 py-3 rounded-xl border outline-none transition-all focus:ring-2 focus:ring-[#7a1a1a]/20 focus:border-[#7a1a1a] resize-none text-sm ${
+                  errors.bio ? "border-red-400 bg-red-50" : "border-gray-300 text-gray-700"
+                }`}
+                placeholder="Ceritakan tentang diri Anda..."
+              />
+              {errors.bio && <p className="text-red-500 text-xs">{errors.bio.message}</p>}
+            </div>
+
+            {/* Tombol Daftar */}
+            <button
+              type="submit"
+              disabled={_loading}
+              className="w-full h-12 bg-[#7a1a1a] text-white rounded-xl text-sm font-semibold tracking-widest hover:bg-[#5e1414] active:scale-[0.98] transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {_loading ? "Memproses..." : "DAFTAR"}
+            </button>
+
+            {/* Success */}
+            {success && (
+              <div className="p-3 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm text-center font-medium">
+                ✓ Registrasi berhasil!
+              </div>
+            )}
+
+          </form>
+
+          {/* Link Login */}
+          <p className="mt-6 text-sm text-center text-gray-500">
+            Sudah punya akun?{" "}
+            <Link to="/login" className="text-[#7a1a1a] font-semibold hover:underline">
+              Login disini
+            </Link>
+          </p>
+
         </div>
+      </div>
 
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-semibold text-gray-700">Bio</label>
-          <textarea
-            {...register("bio")}
-            className={`p-3 rounded-xl border outline-none h-20 transition-all focus:ring-2 focus:ring-red-200 ${
-              errors.bio ? "border-red-500 bg-red-50" : "border-gray-300"
-            }`}
-            placeholder="Ceritakan tentang diri Anda..."
-          />
-          {errors.bio && (
-            <p className="text-red-500 text-xs">{errors.bio.message}</p>
-          )}
-        </div>
-
-        <div className="flex justify-center w-full">
-          <Button type="submit" label="register" variant="primary" />
-        </div>
-
-        {success && (
-          <div className="p-3 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm text-center font-medium animate-in fade-in duration-500">
-            Registrasi berhasil!
-          </div>
-        )}
-      </form>
-
-      <p className="mt-6 text-sm text-center text-gray-500">
-        Sudah punya akun?{" "}
-        <Link to="/login" className="text-red-900 font-bold hover:underline">
-          Login disini
-        </Link>
-      </p>
     </div>
   );
 }
